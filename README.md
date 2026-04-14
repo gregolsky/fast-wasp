@@ -84,4 +84,4 @@ All data stored in `localStorage` under the `fastfast.v1.*` namespace:
 
 ## License
 
-MIT
+Apache 2.0

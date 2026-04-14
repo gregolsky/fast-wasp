@@ -1,3 +1,5 @@
+// Copyright 2025 Grzegorz Lachowski
+// SPDX-License-Identifier: Apache-2.0
 import {
   getActiveFast, saveActiveFast, clearActiveFast,
   pushFastHistory, uid,
