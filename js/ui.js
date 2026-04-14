@@ -20,31 +20,20 @@ import {
 } from './notify.js';
 
 // ─────────────────────────────────────────────────────────────
-// Tick — rAF-based, ~1s granularity, auto-stops when IDs vanish
+// Tick — setInterval every 500 ms, try-catch so errors never
+// kill the loop, wall-clock derived so reload stays accurate.
 // ─────────────────────────────────────────────────────────────
-let _rafId    = null;
-let _lastSec  = -1;
+let _tickId = null;
 
 function startTick(fn) {
   stopTick();
-  let active = true;
-  function loop() {
-    if (!active) return;
-    const sec = Math.floor(Date.now() / 1000);
-    if (sec !== _lastSec) {
-      _lastSec = sec;
-      fn();
-    }
-    _rafId = requestAnimationFrame(loop);
-  }
-  _rafId = requestAnimationFrame(loop);
-  // Keep a cancel handle
-  return () => { active = false; };
+  const safe = () => { try { fn(); } catch (e) { console.error('tick', e); } };
+  safe();                              // immediate first paint
+  _tickId = setInterval(safe, 500);   // 500ms → never miss a second
 }
 
 function stopTick() {
-  if (_rafId != null) { cancelAnimationFrame(_rafId); _rafId = null; }
-  _lastSec = -1;
+  if (_tickId != null) { clearInterval(_tickId); _tickId = null; }
 }
 
 export function clearTick() { stopTick(); }
@@ -341,7 +330,7 @@ function ringHTML(mode = 'fast') {
 
 function tickRing(mode, startedAt, targetHours) {
   const digitsEl = document.getElementById('timer-digits');
-  if (!digitsEl) { stopTick(); return; }   // view changed — stop automatically
+  if (!digitsEl) return;   // view changed — interval will be cleared by clearTick() on next navigate
 
   const ringEl   = document.getElementById('ring-prog');
   const labelEl  = document.getElementById('timer-label');
