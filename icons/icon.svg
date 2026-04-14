@@ -1,0 +1,52 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512">
+  <!-- Background: near-black -->
+  <rect width="512" height="512" fill="#0a0a07"/>
+
+  <!-- Wings (left) -->
+  <ellipse cx="148" cy="210" rx="105" ry="44" fill="rgba(245,192,0,0.18)" stroke="rgba(245,192,0,0.55)" stroke-width="4" transform="rotate(-20 148 210)"/>
+  <!-- Wings (right) -->
+  <ellipse cx="364" cy="210" rx="105" ry="44" fill="rgba(245,192,0,0.18)" stroke="rgba(245,192,0,0.55)" stroke-width="4" transform="rotate(20 364 210)"/>
+
+  <!-- Waist (petiole) — narrow connector -->
+  <ellipse cx="256" cy="288" rx="22" ry="18" fill="#f5c000"/>
+
+  <!-- Head -->
+  <circle cx="256" cy="148" r="56" fill="#f5c000"/>
+  <!-- Antennae -->
+  <line x1="236" y1="96" x2="210" y2="52" stroke="#f5c000" stroke-width="6" stroke-linecap="round"/>
+  <circle cx="206" cy="47" r="7" fill="#f5c000"/>
+  <line x1="276" y1="96" x2="302" y2="52" stroke="#f5c000" stroke-width="6" stroke-linecap="round"/>
+  <circle cx="306" cy="47" r="7" fill="#f5c000"/>
+  <!-- Eyes -->
+  <ellipse cx="236" cy="148" rx="14" ry="16" fill="#0a0a07"/>
+  <ellipse cx="276" cy="148" rx="14" ry="16" fill="#0a0a07"/>
+  <!-- Eye gleam -->
+  <circle cx="240" cy="143" r="4" fill="rgba(245,192,0,.5)"/>
+  <circle cx="280" cy="143" r="4" fill="rgba(245,192,0,.5)"/>
+  <!-- Mandibles -->
+  <path d="M232 200 Q218 218 224 228" stroke="#0a0a07" stroke-width="5" fill="none" stroke-linecap="round"/>
+  <path d="M280 200 Q294 218 288 228" stroke="#0a0a07" stroke-width="5" fill="none" stroke-linecap="round"/>
+
+  <!-- Thorax -->
+  <ellipse cx="256" cy="248" rx="52" ry="44" fill="#f5c000"/>
+  <!-- Thorax stripe -->
+  <rect x="208" y="238" width="96" height="12" rx="2" fill="#0a0a07" opacity=".5"/>
+
+  <!-- Abdomen — yellow base with black stripes -->
+  <ellipse cx="256" cy="360" rx="66" ry="90" fill="#f5c000"/>
+  <!-- Black stripes on abdomen -->
+  <clipPath id="abd">
+    <ellipse cx="256" cy="360" rx="66" ry="90"/>
+  </clipPath>
+  <g clip-path="url(#abd)">
+    <rect x="188" y="302" width="136" height="22" fill="#0a0a07"/>
+    <rect x="188" y="346" width="136" height="22" fill="#0a0a07"/>
+    <rect x="188" y="390" width="136" height="22" fill="#0a0a07"/>
+    <rect x="188" y="434" width="136" height="22" fill="#0a0a07"/>
+  </g>
+
+  <!-- Stinger tip — sharp triangle -->
+  <polygon points="256,445 242,468 270,468" fill="#f5c000"/>
+  <polygon points="256,470 249,492 263,492" fill="#f5c000"/>
+  <polygon points="256,493 252,508 260,508" fill="#ffe033"/>
+</svg>
