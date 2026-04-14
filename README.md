@@ -1,6 +1,10 @@
-# 🐝 Fast Wasp
+<div align="center">
+  <img src="favicon.png" width="120" alt="Fast Wasp logo" />
+  <h1>Fast Wasp</h1>
+  <p><em>Intermittent fasting tracker. With a sting.</em></p>
+</div>
 
-> Intermittent fasting tracker. With a sting.
+---
 
 A free, offline-first Progressive Web App for tracking intermittent fasting, weight and craving resistance — no account, no ads, all data stored locally in your browser.
 
