@@ -2,14 +2,16 @@ const SCHEMA_VERSION = 1;
 const NS = 'fastfast.v1';
 
 const KEYS = {
-  schema:      `${NS}.schemaVersion`,
-  settings:    `${NS}.settings`,
-  activeFast:  `${NS}.activeFast`,
-  fastHistory: `${NS}.fastHistory`,
-  weights:     `${NS}.weights`,
-  omad:        `${NS}.omad`,
-  omadHistory: `${NS}.omadHistory`,
-  cravings:    `${NS}.cravings`,
+  schema:             `${NS}.schemaVersion`,
+  settings:           `${NS}.settings`,
+  activeFast:         `${NS}.activeFast`,
+  fastHistory:        `${NS}.fastHistory`,
+  activeConsumption:  `${NS}.activeConsumption`,
+  consumptionHistory: `${NS}.consumptionHistory`,
+  weights:            `${NS}.weights`,
+  omad:               `${NS}.omad`,
+  omadHistory:        `${NS}.omadHistory`,
+  cravings:           `${NS}.cravings`,
 };
 
 function get(key, fallback = null) {
@@ -101,6 +103,25 @@ export function pushOmadHistory(entry) {
   const hist = getOmadHistory();
   hist.unshift(entry);
   set(KEYS.omadHistory, hist);
+}
+
+// ── Active consumption window ─────────────────────────────────
+export function getActiveConsumption() {
+  return get(KEYS.activeConsumption, null);
+}
+export function saveActiveConsumption(c) {
+  set(KEYS.activeConsumption, c);
+}
+export function clearActiveConsumption() {
+  localStorage.removeItem(KEYS.activeConsumption);
+}
+export function getConsumptionHistory() {
+  return get(KEYS.consumptionHistory, []);
+}
+export function pushConsumptionHistory(entry) {
+  const hist = getConsumptionHistory();
+  hist.unshift(entry);
+  set(KEYS.consumptionHistory, hist);
 }
 
 // ── Cravings ──────────────────────────────────────────────────

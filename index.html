@@ -3,13 +3,13 @@
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
-  <meta name="theme-color" content="#0a0a07" />
+  <meta name="theme-color" content="#1c2830" />
   <meta name="apple-mobile-web-app-capable" content="yes" />
   <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
   <meta name="apple-mobile-web-app-title" content="Fast Wasp" />
 
   <!-- SEO -->
-  <meta name="description" content="Fast Wasp — a free, offline-first PWA for intermittent fasting with a sting. Track 12:12, 14:10, 16:8, 18:6, 20:4 and OMAD fasts with a live countdown, overtime tracking, weight logging and 3-month progress charts — no account needed." />
+  <meta name="description" content="Fast Wasp — a free, offline-first PWA for intermittent fasting with a sting. Track 12:12, 14:10, 16:8, 18:6, 20:4 and OMAD fasts with a live countdown, eating window timer, weight logging and 3-month progress charts — no account needed." />
   <meta name="keywords" content="intermittent fasting, fasting timer, 16:8, OMAD, weight tracker, fasting app, PWA, offline" />
   <meta name="robots" content="index, follow" />
   <meta name="author" content="Fast Wasp" />
@@ -19,39 +19,52 @@
   <meta property="og:type"        content="website" />
   <meta property="og:url"         content="https://yourusername.github.io/fast-fast/" />
   <meta property="og:title"       content="Fast Wasp — Intermittent Fasting Tracker" />
-  <meta property="og:description" content="Free, offline-first fasting tracker with a sting. Live countdown, overtime tracking, weight log and progress charts. No sign-up. Installs as an app." />
-  <meta property="og:image"       content="https://yourusername.github.io/fast-fast/icons/icon-512.png" />
-  <meta property="og:image:width"  content="512" />
-  <meta property="og:image:height" content="512" />
-  <meta property="og:locale"     content="en_US" />
-  <meta property="og:site_name"  content="Fast Wasp" />
+  <meta property="og:description" content="Free, offline-first fasting tracker with a sting. Live countdown, eating window, weight log and progress charts. No sign-up. Installs as an app." />
+  <meta property="og:image"       content="https://yourusername.github.io/fast-fast/favicon.png" />
+  <meta property="og:locale"      content="en_US" />
+  <meta property="og:site_name"   content="Fast Wasp" />
 
   <!-- Twitter / X Card -->
   <meta name="twitter:card"        content="summary" />
   <meta name="twitter:title"       content="Fast Wasp — Intermittent Fasting Tracker" />
   <meta name="twitter:description" content="Free offline-first fasting tracker with a sting. 16:8, OMAD, custom fasts, weight tracking & charts. No account required." />
-  <meta name="twitter:image"       content="https://yourusername.github.io/fast-fast/icons/icon-512.png" />
+  <meta name="twitter:image"       content="https://yourusername.github.io/fast-fast/favicon.png" />
 
-  <link rel="icon" href="./icons/icon.svg" type="image/svg+xml" />
-  <link rel="apple-touch-icon" href="./icons/icon-192.png" />
+  <link rel="icon" href="./favicon.png" type="image/png" />
+  <link rel="apple-touch-icon" href="./favicon.png" />
   <link rel="manifest" href="./manifest.webmanifest" />
   <link rel="stylesheet" href="./styles.css" />
   <title>Fast Wasp — Intermittent Fasting Tracker</title>
 </head>
 <body>
+
   <header class="topbar">
-    <h1>FAST <span>WASP</span></h1>
+    <!-- Brand -->
+    <div class="brand">
+      <img src="./favicon.png" class="brand-logo" alt="Fast Wasp" />
+      <span class="brand-name">FAST WASP</span>
+    </div>
+
+    <!-- Primary navigation (Fast, Weight, Resist) -->
+    <nav class="topnav" aria-label="Primary">
+      <button class="topnav-btn" data-view="fast">⏱ Fast</button>
+      <button class="topnav-btn" data-view="weight">⚖ Weight</button>
+      <button class="topnav-btn" data-view="cravings">🍬 Resist</button>
+    </nav>
+
+    <!-- Hamburger for secondary items -->
+    <button class="hamburger" id="hamburger-btn" aria-label="More" aria-expanded="false">
+      <span></span><span></span><span></span>
+    </button>
   </header>
 
-  <main id="view"></main>
+  <!-- Hamburger dropdown -->
+  <div class="hmenu" id="hmenu" role="menu">
+    <button class="hmenu-item" data-view="stats" role="menuitem">📈 Stats</button>
+    <button class="hmenu-item" data-view="settings" role="menuitem">⚙ Settings</button>
+  </div>
 
-  <nav class="tabbar" aria-label="Primary">
-    <button class="tab" data-view="fast" aria-label="Fast">⏱<span>Fast</span></button>
-    <button class="tab" data-view="weight" aria-label="Weight">⚖<span>Weight</span></button>
-    <button class="tab" data-view="cravings" aria-label="Resist">🍬<span>Resist</span></button>
-    <button class="tab" data-view="stats" aria-label="Stats">📈<span>Stats</span></button>
-    <button class="tab" data-view="settings" aria-label="Settings">⚙<span>Settings</span></button>
-  </nav>
+  <main id="view"></main>
 
   <!-- Chart.js + date-fns adapter (pinned) -->
   <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.3/dist/chart.umd.min.js"></script>
