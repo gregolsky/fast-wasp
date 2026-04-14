@@ -1,26 +1,26 @@
 /* ═══════════════════════════════════════════════════════════
    Fast Wasp — Design System
-   Palette: dark teal + amber gold (from favicon)
+   Palette: black + amber gold (from logo.svg)
    ═══════════════════════════════════════════════════════════ */
 
 *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
 
 :root {
-  /* Backgrounds — dark teal inspired by favicon backdrop */
-  --bg:        #1a2530;
-  --bg2:       #212e3a;
-  --bg3:       #2a3a48;
-  --border:    #354d5f;
+  /* Backgrounds — warm near-black, matching wasp body */
+  --bg:        #100e08;
+  --bg2:       #1a1710;
+  --bg3:       #252018;
+  --border:    #3d3418;
 
-  /* Gold — from the wasp medallion */
-  --accent:    #c49a0c;
-  --accent2:   #a07e08;
-  --sting:     #e8b414;
-  --stripe:    rgba(196,154,12,.07);
+  /* Gold — exact colours from logo.svg */
+  --accent:    #e4af28;   /* logo primary amber */
+  --accent2:   #b7831c;   /* logo shadow amber  */
+  --sting:     #f5c842;   /* slightly brighter highlight */
+  --stripe:    rgba(228,175,40,.06);
 
   /* Text */
-  --text:      #ede4c8;
-  --muted:     #7a9090;
+  --text:      #f5edcc;
+  --muted:     #887844;
 
   /* Semantic */
   --success:   #4ade80;
@@ -82,7 +82,7 @@ html, body {
   font-weight: 900;
   letter-spacing: .1em;
   color: var(--accent);
-  text-shadow: 0 0 12px rgba(196,154,12,.4);
+  text-shadow: 0 0 12px rgba(228,175,40,.4);
   white-space: nowrap;
 }
 
@@ -109,7 +109,7 @@ html, body {
 .topnav-btn.active {
   color: var(--accent);
   border-bottom-color: var(--accent);
-  text-shadow: 0 0 10px rgba(196,154,12,.4);
+  text-shadow: 0 0 10px rgba(228,175,40,.4);
 }
 .topnav-btn:hover:not(.active) { color: var(--text); }
 
@@ -216,7 +216,7 @@ main#view {
   background: var(--accent);
   color: #0a0a00;
   width: 100%;
-  box-shadow: 0 0 14px rgba(196,154,12,.22);
+  box-shadow: 0 0 14px rgba(228,175,40,.22);
 }
 .btn-primary:hover { background: var(--sting); box-shadow: 0 0 20px rgba(232,180,20,.4); }
 .btn-danger  { background: var(--danger); color: #fff; width: 100%; }
@@ -243,14 +243,14 @@ main#view {
   border-radius: 50%;
   object-fit: cover;
   margin-bottom: 14px;
-  box-shadow: 0 0 0 4px var(--accent), 0 0 24px rgba(196,154,12,.3);
+  box-shadow: 0 0 0 4px var(--accent), 0 0 24px rgba(228,175,40,.3);
 }
 .onboard-title {
   font-size: 2rem;
   font-weight: 900;
   letter-spacing: .1em;
   color: var(--accent);
-  text-shadow: 0 0 18px rgba(196,154,12,.45);
+  text-shadow: 0 0 18px rgba(228,175,40,.45);
   margin-bottom: 6px;
 }
 .onboard-tagline {
@@ -317,7 +317,7 @@ main#view {
   outline: none;
   transition: border-color .15s;
 }
-.onboard-input:focus { border-color: var(--accent); box-shadow: 0 0 0 3px rgba(196,154,12,.15); }
+.onboard-input:focus { border-color: var(--accent); box-shadow: 0 0 0 3px rgba(228,175,40,.15); }
 
 /* ═══════════════════════════════════════════════════════════
    GREETING
@@ -361,7 +361,7 @@ main#view {
 .program-btn.selected {
   border-color: var(--accent);
   color: var(--accent);
-  background: rgba(196,154,12,.08);
+  background: rgba(228,175,40,.08);
 }
 .custom-input-wrap {
   display: flex;
@@ -383,7 +383,7 @@ main#view {
 }
 .ready-prog-badge {
   display: inline-block;
-  background: rgba(196,154,12,.15);
+  background: rgba(228,175,40,.15);
   border: 1px solid var(--accent);
   border-radius: 99px;
   padding: 4px 16px;
@@ -456,7 +456,7 @@ main#view {
   stroke-width: 10;
   stroke-linecap: butt;
   transition: stroke-dashoffset .5s linear, stroke .3s;
-  filter: drop-shadow(0 0 5px rgba(196,154,12,.45));
+  filter: drop-shadow(0 0 5px rgba(228,175,40,.45));
 }
 .ring-prog.overtime   { stroke: var(--warning); filter: drop-shadow(0 0 5px rgba(251,146,60,.5)); }
 .ring-prog.ring-eat   { stroke: var(--success); filter: drop-shadow(0 0 5px rgba(74,222,128,.4)); }
@@ -660,14 +660,14 @@ main#view {
   cursor: pointer;
   margin: 0 auto 16px;
   background: var(--accent);
-  box-shadow: 0 0 0 6px rgba(196,154,12,.18), 0 0 28px rgba(196,154,12,.25);
+  box-shadow: 0 0 0 6px rgba(228,175,40,.18), 0 0 28px rgba(228,175,40,.25);
   transition: transform .1s, box-shadow .1s;
   user-select: none;
   -webkit-tap-highlight-color: transparent;
 }
 .panic-btn:active {
   transform: scale(.91);
-  box-shadow: 0 0 0 3px rgba(196,154,12,.3);
+  box-shadow: 0 0 0 3px rgba(228,175,40,.3);
 }
 .panic-icon  { font-size: 2.4rem; line-height: 1; }
 .panic-label { font-size: .85rem; font-weight: 900; color: #0a0a00; letter-spacing: .06em; }
@@ -685,8 +685,8 @@ main#view {
 
 .streak-banner {
   margin-top: 14px;
-  background: rgba(196,154,12,.12);
-  border: 1px solid rgba(196,154,12,.35);
+  background: rgba(228,175,40,.12);
+  border: 1px solid rgba(228,175,40,.35);
   border-left: 3px solid var(--accent);
   border-radius: var(--radius-sm);
   padding: 10px 14px;
@@ -708,9 +708,9 @@ main#view {
 }
 .cal-dot { aspect-ratio: 1; border-radius: 2px; cursor: default; }
 .cal-dot-0 { background: var(--bg3); }
-.cal-dot-1 { background: rgba(196,154,12,.25); }
-.cal-dot-2 { background: rgba(196,154,12,.50); }
-.cal-dot-3 { background: rgba(196,154,12,.75); }
+.cal-dot-1 { background: rgba(228,175,40,.25); }
+.cal-dot-2 { background: rgba(228,175,40,.50); }
+.cal-dot-3 { background: rgba(228,175,40,.75); }
 .cal-dot-4 { background: var(--accent); }
 .cal-legend { display: flex; align-items: center; gap: 4px; justify-content: flex-end; }
 .cal-legend .cal-dot { width: 12px; height: 12px; }
