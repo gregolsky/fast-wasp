@@ -1,6 +1,6 @@
 // Copyright 2025 Grzegorz Lachowski
 // SPDX-License-Identifier: Apache-2.0
-const CACHE = 'fastwasp-v2';
+const CACHE = 'fastwasp-v3';
 const SHELL = [
   './',
   './index.html',
@@ -8,6 +8,9 @@ const SHELL = [
   './app.js',
   './favicon.png',
   './manifest.webmanifest',
+  './icons/icon-192.png',
+  './icons/icon-512.png',
+  './icons/icon-maskable-512.png',
   './js/storage.js',
   './js/fasting.js',
   './js/weight.js',
