@@ -1,3 +1,5 @@
+// Copyright 2025 Grzegorz Lachowski
+// SPDX-License-Identifier: Apache-2.0
 const SCHEMA_VERSION = 1;
 const NS = 'fastfast.v1';
 

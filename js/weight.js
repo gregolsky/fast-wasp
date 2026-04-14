@@ -1,3 +1,5 @@
+// Copyright 2025 Grzegorz Lachowski
+// SPDX-License-Identifier: Apache-2.0
 import { getWeights, addWeight, deleteWeight, updateWeight, uid } from './storage.js';
 
 export const KG_PER_LB = 0.45359237;
