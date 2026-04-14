@@ -11,6 +11,7 @@ const SHELL = [
   './js/weight.js',
   './js/chart.js',
   './js/cravings.js',
+  './js/notify.js',
   './js/ui.js',
 ];
 

@@ -14,6 +14,10 @@ import { getSettings, saveSettings } from './storage.js';
 import {
   logCraving, getCravingStats, getStreak, getLast30Days, deleteLastCraving, getCravings,
 } from './cravings.js';
+import {
+  canNotify, notifyOnce, clearNotifyKey, requestPermission,
+  notificationsSupported, notificationPermission,
+} from './notify.js';
 
 // ─────────────────────────────────────────────────────────────
 // Tick — rAF-based, ~1s granularity, auto-stops when IDs vanish
@@ -260,6 +264,10 @@ function renderFastTimer(container, activeFast, prog) {
     ${renderHistoryCard()}
   `;
 
+  // Ask for notification permission the first time a fast is active
+  requestPermission();
+  clearNotifyKey(`fast-${activeFast.startedAt}`);
+
   container.querySelector('#stop-fast-btn').addEventListener('click', () => {
     stopFast();
     renderFast(container);
@@ -288,6 +296,8 @@ function renderEatTimer(container, activeEat, prog) {
     </div>
     ${renderHistoryCard()}
   `;
+
+  clearNotifyKey(`eat-${activeEat.startedAt}`);
 
   container.querySelector('#start-next-fast-btn').addEventListener('click', () => {
     // stopConsumption is called inside startFast
@@ -355,6 +365,20 @@ function tickRing(mode, startedAt, targetHours) {
     badgeEl.innerHTML = isOvertime
       ? `<span class="overtime-badge">+${formatHMS(Math.abs(rem))} overtime</span>`
       : '';
+  }
+
+  // Fire notification once when the window ends
+  if (isOvertime) {
+    const key = `${mode}-${startedAt}`;
+    if (mode === 'fast') {
+      notifyOnce(key, '🐝 Fast complete!',
+        `Your ${targetHours}h fast is done. Time to eat — don't overdo it!`,
+        { tag: 'fast-end', renotify: true });
+    } else {
+      notifyOnce(key, '⏱ Eating window closed',
+        `Your ${targetHours}h eating window is up. Start your next fast when ready.`,
+        { tag: 'eat-end', renotify: true });
+    }
   }
 }
 
@@ -736,6 +760,21 @@ export function renderSettings(container) {
           <button class="pill-btn${settings.unit==='lb'?' active':''}" data-unit="lb">lb</button>
         </div>
       </div>
+      ${notificationsSupported() ? (() => {
+        const perm = notificationPermission();
+        const granted = perm === 'granted';
+        const denied  = perm === 'denied';
+        return `
+        <div class="settings-row">
+          <label>Timer Notifications</label>
+          ${denied
+            ? `<span style="font-size:.78rem;color:var(--muted)">Blocked in browser</span>`
+            : granted
+              ? `<span style="font-size:.78rem;color:var(--success)">✓ Enabled</span>`
+              : `<button class="btn btn-ghost btn-sm" id="req-notif-btn">Enable</button>`
+          }
+        </div>`;
+      })() : ''}
     </div>
     <div class="card">
       <div class="card-title">About</div>
@@ -752,10 +791,16 @@ export function renderSettings(container) {
   const saveName = () => saveSettings({ ...s(), name: ni.value.trim() });
   ni.addEventListener('blur', saveName);
   ni.addEventListener('keydown', e => { if (e.key==='Enter') { saveName(); ni.blur(); } });
+
   container.querySelectorAll('[data-unit]').forEach(btn =>
     btn.addEventListener('click', () => {
       saveSettings({ ...s(), unit: btn.dataset.unit });
       renderSettings(container);
     })
   );
+
+  container.querySelector('#req-notif-btn')?.addEventListener('click', async () => {
+    await requestPermission();
+    renderSettings(container);
+  });
 }
