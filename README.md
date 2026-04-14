@@ -1,5 +1,5 @@
 <div align="center">
-  <img src="favicon.png" width="120" alt="Fast Wasp logo" />
+  <img src="favicon.png" width="220" alt="Fast Wasp logo" />
   <h1>Fast Wasp</h1>
   <p><em>Intermittent fasting tracker. With a sting.</em></p>
 </div>
