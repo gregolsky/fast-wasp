@@ -549,6 +549,8 @@ main#view {
   transition: border-color .15s;
 }
 .form-group input:focus { border-color: var(--accent); }
+.form-group input.input-error { border-color: var(--danger); }
+.field-error { font-size: .72rem; color: var(--danger); min-height: 1em; }
 
 .entry-list { list-style: none; display: flex; flex-direction: column; gap: 7px; }
 .entry-item {
