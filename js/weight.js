@@ -14,6 +14,14 @@ export function unitLabel(unit) {
   return unit === 'lb' ? 'lb' : 'kg';
 }
 
+export function validateWeight(val) {
+  const num = parseFloat(val);
+  if (val === '' || isNaN(num)) return { ok: false, error: 'Enter a valid weight.' };
+  if (num < 1)   return { ok: false, error: 'Weight must be at least 1.' };
+  if (num > 500) return { ok: false, error: 'Weight must be 500 or less.' };
+  return { ok: true, error: '' };
+}
+
 export function addWeightEntry(dateStr, value, unit) {
   const kg = toKg(parseFloat(value), unit);
   addWeight({ id: uid(), at: dateStr, kg });

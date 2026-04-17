@@ -10,6 +10,7 @@ import {
 import {
   addWeightEntry, deleteWeightEntry, updateWeightEntry,
   getWeightDisplay, get3MonthStats, getChartData, unitLabel,
+  validateWeight,
 } from './weight.js';
 import { renderWeightChart, updateChartData, destroyChart } from './chart.js';
 import { getSettings, saveSettings } from './storage.js';
@@ -502,6 +503,7 @@ export function renderWeight(container) {
           <input type="number" id="w-val" step="0.1" min="1" max="500"
             placeholder="${u === 'kg' ? '75.0' : '165.0'}"
             value="${editEntry ? editEntry.display : ''}" />
+          <span id="w-val-error" class="field-error"></span>
         </div>
       </div>
       <div style="display:flex;gap:8px">
@@ -544,11 +546,18 @@ export function renderWeight(container) {
   `;
 
   container.querySelector('#save-weight-btn').addEventListener('click', () => {
-    const date = container.querySelector('#w-date').value;
-    const val  = container.querySelector('#w-val').value;
-    if (!date || !val) return;
+    const date   = container.querySelector('#w-date').value;
+    const val    = container.querySelector('#w-val').value;
+    const input  = container.querySelector('#w-val');
+    const errEl  = container.querySelector('#w-val-error');
+    const { ok, error } = validateWeight(val);
+
+    input.classList.toggle('input-error', !ok);
+    errEl.textContent = ok ? '' : error;
+    if (!ok || !date) return;
+
     if (_editingId) { updateWeightEntry(_editingId, date, val, u); _editingId = null; }
-    else             { addWeightEntry(date, val, u); }
+    else            { addWeightEntry(date, val, u); }
     renderWeight(container);
   });
   container.querySelector('#cancel-edit-btn')?.addEventListener('click', () => {

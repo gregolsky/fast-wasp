@@ -21,4 +21,4 @@ jobs:
           publish_branch: deploy
           publish_dir: ./
           # Exclude source-only files from the deploy branch
-          exclude_assets: '.github,*.xcf,*.md'
+          exclude_assets: '.github,*.xcf,*.md,node_modules,tests,package.json,package-lock.json,vitest.config.js,playwright.config.js'
