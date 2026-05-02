@@ -302,7 +302,12 @@ function renderFastTimer(container, activeFast, prog) {
   });
 
   container.querySelector('#edit-start-cancel').addEventListener('click', () => {
-    container.querySelector('#edit-start-panel').hidden = true;
+    const panel  = container.querySelector('#edit-start-panel');
+    const input  = container.querySelector('#edit-start-input');
+    const errEl  = container.querySelector('#edit-start-error');
+    panel.hidden       = true;
+    errEl.textContent  = '';
+    input.value        = toLocalDatetimeValue(activeFast.startedAt);
   });
 
   startTick(() => tickRing('fast', activeFast.startedAt, fastH));
