@@ -1,7 +1,7 @@
 // Copyright 2025 Grzegorz Lachowski
 // SPDX-License-Identifier: Apache-2.0
 import {
-  getActiveFast, saveActiveFast, clearActiveFast,
+  getActiveFast, saveActiveFast, clearActiveFast, updateActiveFast,
   pushFastHistory, uid,
   getOmad, saveOmad, clearOmad, getOmadHistory, pushOmadHistory, getFastHistory,
   getActiveConsumption, saveActiveConsumption, clearActiveConsumption,
@@ -139,3 +139,14 @@ export function logMeal(targetHours = 23) {
 
 export function getOmadState() { return getOmad(); }
 export { getFastHistory, getOmadHistory };
+
+// ── Edit active fast start time ───────────────────────────────
+export function setActiveFastStart(localDatetime) {
+  const d = new Date(localDatetime);
+  if (isNaN(d.getTime())) return { ok: false, error: 'Invalid date.' };
+  if (d.getTime() > Date.now()) return { ok: false, error: 'Start time cannot be in the future.' };
+  const floor = Date.now() - 14 * 24 * 3600 * 1000;
+  if (d.getTime() < floor) return { ok: false, error: 'Start time too far in the past.' };
+  updateActiveFast({ startedAt: d.toISOString() });
+  return { ok: true, error: '' };
+}

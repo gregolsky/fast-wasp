@@ -6,6 +6,7 @@ import {
   getActiveFastState, getActiveConsumption,
   remaining, formatHMS, elapsed,
   logMeal, getOmadState, getFastHistory, getOmadHistory,
+  setActiveFastStart,
 } from './fasting.js';
 import {
   addWeightEntry, deleteWeightEntry, updateWeightEntry,
@@ -46,6 +47,12 @@ export function clearTick() { stopTick(); }
 // ─────────────────────────────────────────────────────────────
 function s()     { return getSettings(); }
 function unit()  { return s().unit; }
+
+function toLocalDatetimeValue(iso) {
+  const d   = new Date(iso);
+  const pad = n => String(n).padStart(2, '0');
+  return `${d.getFullYear()}-${pad(d.getMonth()+1)}-${pad(d.getDate())}T${pad(d.getHours())}:${pad(d.getMinutes())}`;
+}
 const CIRCUM = 2 * Math.PI * 100; // 628.3
 
 // ─────────────────────────────────────────────────────────────
@@ -244,6 +251,7 @@ function renderReadyState(container, prog, settings) {
 function renderFastTimer(container, activeFast, prog) {
   const fastH = activeFast.targetHours;
   const label = prog?.label ?? `${fastH}h`;
+  const nowDT = toLocalDatetimeValue(new Date().toISOString());
 
   container.innerHTML = `
     <div class="card timer-card">
@@ -252,6 +260,20 @@ function renderFastTimer(container, activeFast, prog) {
       <div class="timer-prog-name">${label} · ${fastH}h fast</div>
       <div id="overtime-badge-wrap" class="mt-8"></div>
       <button class="btn btn-danger mt-16" id="stop-fast-btn">Stop Fast</button>
+      <button class="btn btn-ghost mt-8" id="edit-start-btn" style="width:100%;font-size:.8rem">Edit start time</button>
+      <div id="edit-start-panel" hidden style="margin-top:8px;width:100%">
+        <div class="form-group">
+          <label for="edit-start-input">Start time</label>
+          <input type="datetime-local" id="edit-start-input"
+            value="${toLocalDatetimeValue(activeFast.startedAt)}"
+            max="${nowDT}" style="width:100%" />
+          <span id="edit-start-error" class="field-error"></span>
+        </div>
+        <div style="display:flex;gap:8px;margin-top:8px">
+          <button class="btn btn-primary" id="edit-start-save">Save</button>
+          <button class="btn btn-ghost" id="edit-start-cancel">Cancel</button>
+        </div>
+      </div>
     </div>
     ${renderHistoryCard()}
   `;
@@ -263,6 +285,24 @@ function renderFastTimer(container, activeFast, prog) {
   container.querySelector('#stop-fast-btn').addEventListener('click', () => {
     stopFast();
     renderFast(container);
+  });
+
+  container.querySelector('#edit-start-btn').addEventListener('click', () => {
+    const panel = container.querySelector('#edit-start-panel');
+    panel.hidden = !panel.hidden;
+  });
+
+  container.querySelector('#edit-start-save').addEventListener('click', () => {
+    const input  = container.querySelector('#edit-start-input');
+    const errEl  = container.querySelector('#edit-start-error');
+    const { ok, error } = setActiveFastStart(input.value);
+    if (!ok) { errEl.textContent = error; return; }
+    errEl.textContent = '';
+    renderFast(container);
+  });
+
+  container.querySelector('#edit-start-cancel').addEventListener('click', () => {
+    container.querySelector('#edit-start-panel').hidden = true;
   });
 
   startTick(() => tickRing('fast', activeFast.startedAt, fastH));

@@ -54,6 +54,11 @@ export function saveActiveFast(f) {
 export function clearActiveFast() {
   localStorage.removeItem(KEYS.activeFast);
 }
+export function updateActiveFast(patch) {
+  const cur = getActiveFast();
+  if (!cur) return;
+  set(KEYS.activeFast, { ...cur, ...patch });
+}
 
 // ── Fast history ──────────────────────────────────────────────
 export function getFastHistory() {
