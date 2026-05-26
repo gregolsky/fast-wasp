@@ -47,6 +47,7 @@ const _fired = new Set();
 
 export function notifyOnce(key, title, body, opts = {}) {
   if (_fired.has(key)) return;
+  if (!canNotify()) return;   // permission not yet granted — retry next tick
   _fired.add(key);
   notify(title, body, opts);
 }
