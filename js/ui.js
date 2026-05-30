@@ -251,7 +251,6 @@ function renderReadyState(container, prog, settings) {
 function renderFastTimer(container, activeFast, prog) {
   const fastH = activeFast.targetHours;
   const label = prog?.label ?? `${fastH}h`;
-  const nowDT = toLocalDatetimeValue(new Date().toISOString());
 
   container.innerHTML = `
     <div class="card timer-card">
@@ -266,7 +265,7 @@ function renderFastTimer(container, activeFast, prog) {
           <label for="edit-start-input">Start time</label>
           <input type="datetime-local" id="edit-start-input"
             value="${toLocalDatetimeValue(activeFast.startedAt)}"
-            max="${nowDT}" style="width:100%" />
+            style="width:100%" />
           <span id="edit-start-error" class="field-error"></span>
         </div>
         <div style="display:flex;gap:8px;margin-top:8px">
@@ -289,6 +288,10 @@ function renderFastTimer(container, activeFast, prog) {
 
   container.querySelector('#edit-start-btn').addEventListener('click', () => {
     const panel = container.querySelector('#edit-start-panel');
+    const input = container.querySelector('#edit-start-input');
+    const now   = new Date();
+    input.max   = toLocalDatetimeValue(now.toISOString());
+    input.min   = toLocalDatetimeValue(new Date(now.getTime() - 14 * 24 * 3600 * 1000).toISOString());
     panel.hidden = !panel.hidden;
   });
 
